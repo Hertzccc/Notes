@@ -6,7 +6,7 @@
 
    代理服务器，中间人，
 
-   ![图片](https://mmbiz.qpic.cn/mmbiz_png/BwXrEkMVDN0VvQ5T0uYjyDqYumia1ZrY6EdLbvFdfHxmia6nCfiaNLeCLiazFGamx2y7BUIBSQjBvcDYLR0CeoTS7Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+   ![图片](./Charles 学习笔记.assets/640.png)
 
    可以捕获客户端到服务端的请求，捕获服务端传回客户端的响应，
 
@@ -28,7 +28,7 @@
    
           例如将百度重定向至google
    
-          址<img src="/Users/nibaba/Library/Application Support/typora-user-images/Screen Shot 2024-03-01 at 13.10.57.png" alt="Screen Shot 2024-03-01 at 13.10.57" style="zoom:25%;" />
+          址<img src="./Charles 学习笔记.assets/Screen Shot 2024-03-01 at 13.10.57.png" alt="Screen Shot 2024-03-01 at 13.10.57" style="zoom:25%;" />
    
         - MAP Local：将**响应**的内容重定向到本地文件
    

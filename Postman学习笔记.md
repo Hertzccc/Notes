@@ -19,7 +19,7 @@
 
 + 安全考虑
 
-  前端验证容易绕过，直接请求接口![Screen Shot 2024-03-01 at 17.04.22](/Users/nibaba/Library/Application Support/typora-user-images/Screen Shot 2024-03-01 at 17.04.22.png)
+  前端验证容易绕过，直接请求接口![Screen Shot 2024-03-01 at 17.04.22](./Postman学习笔记.assets/Screen Shot 2024-03-01 at 17.04.22.png)
 
 ## 2. 接口测试本质
 
@@ -131,3 +131,59 @@ Cookie: BIDUPSID=8C6D6577D7C; WWW_ST=1594881925661
 - 响应头
 - 空一行
 - 响应内容
+
+
+
+## 5. 企业接口测试流程方案
+
+1. 拿到api接口文档，熟悉接口业务，接口地址，入参，出参，鉴权，错误码
+2. 计划和方案：
+   - 正例：正确的入参，查看接口是否返回成功
+   - 反例：
+     - 鉴权反例：鉴权值为空、鉴权码错误、鉴权码过期
+     - 参数反例：参数为空、类型异常、长度异常、错误码覆盖
+     - 其他：分页异常
+3. 编写用例和评审
+4. 执行接口测试
+5. 输出接口测试报告
+
+<img src="./Postman学习笔记.assets/image-20240301202854833.png" alt="image-20240301202854833" style="zoom:50%;" />
+
+## 6. 接口关联
+
+- 使用json提取器实现
+
+  ```js
+  //第一个接口
+  //get value of access_token
+  //change the data with string format to object
+  var result = JSON.parse(responseBody);
+  //set access_token to global var
+  pm.globals.set("access_token", result.access_token)
+  
+  //第二个接口
+  {{access_token}}
+  ```
+
+  
+
+- 使用正则表达式提取器实现
+
+```js
+//第一个接口
+//match 匹配
+//change the data with string format to object
+var result = responseBody.match(new RegExp('"access_token":"(.*?)"'));
+//set access_token to global var
+pm.globals.set("access_token", result.[1])
+
+//第二个接口
+{{access_token}}
+```
+
+## 7. Postman内置动态参数以及自定义动态参数
+
+- 内置动态参数
+  - {{$timestamp}}: 当前时间戳
+  - {{$randomInt}}: 生成0-1000随机数
+  - {{$guid}}：生成随机GUID字符串
