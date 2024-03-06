@@ -19,7 +19,7 @@
 
 + 安全考虑
 
-  前端验证容易绕过，直接请求接口![Screen Shot 2024-03-01 at 17.04.22](./Postman学习笔记.assets/Screen Shot 2024-03-01 at 17.04.22.png)
+  前端验证容易绕过，直接请求接口<img src="./Postman学习笔记.assets/Screen Shot 2024-03-01 at 17.04.22.png" alt="Screen Shot 2024-03-01 at 17.04.22" />
 
 ## 2. 接口测试本质
 
@@ -100,6 +100,8 @@ http port 80
 
    -  Cookie：Cookie信息
 
+   -  referer：来源（引用页）
+  
       
 
 ````html
@@ -187,3 +189,101 @@ pm.globals.set("access_token", result.[1])
   - {{$timestamp}}: 当前时间戳
   - {{$randomInt}}: 生成0-1000随机数
   - {{$guid}}：生成随机GUID字符串
+
+## 8. Postman断言
+
+测试响应中包含的信息是否符合预期，用脚本实现
+
+常规6种断言Assertion
+
+- Status code: Code is 200 检查返回的状态码是否为200
+- Response body: Contains string 检查响应中包括指定字符串
+- Response body: Json value check 检查响应中其中json的值
+- Response body: is equal to a string 检查响应等于一个字符串
+- Response headers: Content-type header check是否包含响应头
+- Response time is less than 200ms: 检查响应耗时小于200ms
+
+
+
+在断言中获取自定义动态参数（全局变量global variable）
+
+- pm.globals.get("times")
+- globals['times']
+- globals.times
+
+## 9. Postman批量运行测试
+
+Run collection，如有图片需拷贝至公众目录下
+
+
+
+## 10. Postman数据驱动之CSV文件和Json文件的处理//可以用的时候再过一遍
+
+- 写数据文件
+
+- 在pre-request script中用 {{}} 取数据文件的值
+
+- 在test中的script用data.assertvalue（示例）来取值
+
+- 判断返回结果中有access_token时才通过正则表达式取值
+
+  - 示例：
+
+    ```js
+    var result = responseBody.match(new RegExp('"access_token":"(.*?)"'));
+    ```
+
+    
+
+## 11. 测试必须带请求头的接口案例
+
+请求百度搜索时，user-agent是必带的
+
+
+
+## 12. Postman接口mock server
+
+后端接口还没开发完成时，模拟前端业务需要调用的后端接口
+
+
+
+## 13. Postman的cookie鉴权
+
+Cookie: name=value; name2=value2; ...
+
+#### Cookie鉴权
+
+1. 当客户端第一次向服务器发送请求，服务器生成cookie信息，在响应时将set-cookie传回给客户端
+2. 客户端在向服务器第2~N次发送请求时，都会带上所生成的cookie信息，实现鉴权
+
+#### Cookie 的分类
+
+- 会话cookie（session cookie）：临时cookie，在用户关闭浏览器会自动删除
+- 持久cookie（persistent cookie）：指定的过期时间
+- 安全cookie（secure cookie）：通过https发送的cookie，用于保护敏感信息
+
+
+
+## 14. Newman
+
+newman为postman提供命令行形式
+
+运行指令：newman run
+
+常用参数：
+
+- -e：引用环境变量environment
+- -g：引用全局变量global
+- -d：引用数据文件data
+- -n：指定测试迭代次数#iterations
+- -r cli,html,json,junit --reporter-html-export report.html 指定生产html报告
+
+
+
+
+
+## 15. Jenkins
+
+自动化集成new man，自动化集成脚本，生成报告。
+
+​	
