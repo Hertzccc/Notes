@@ -36,3 +36,16 @@
 - git pull: 是 git fetch 和 git merge的缩写, 
 - git push：推送本地的变更到远程仓库
 - git pull --rebase: 就是git fetch;  git rebase的简写
+
+
+
+- merge和rebase讨论
+  - rebase可以使你的提交树变得更安静、整洁，提交在一条线上，但是修改了提交历史
+  - merge可以保留修改历史
+
+- git branch -u o/main foo：指定foo分支跟踪o/main
+
+
+
+- git push 指定参数:
+  - git push <remote>  <place>  例子：git push origin foo：切到本地仓库的foo分支，获取所有提交，再到远程仓库origin中找到main分支，将远程仓库没有提交的记录都加上去，然后告诉我
